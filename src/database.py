@@ -4,7 +4,7 @@ def add_faculty(name, department, qualification, experience):
 import sqlite3
 
 def get_connection():
-    return sqlite3.connect("faculty.db")
+    return sqlite3.connect("Project-1-CSE/faculty.db")
 
 # Create the faculty table
 def create_table():

@@ -5,7 +5,7 @@ from database import add_faculty, get_all_faculty, update_faculty, delete_facult
 def start_app():
     root = tk.Tk()
     root.title("Faculty Data Manager")
-    root.geometry("850x600")
+    root.geometry("1000x500")
 
     top_frame = tk.Frame(root)
     top_frame.pack(pady=10)
