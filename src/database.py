@@ -1,13 +1,12 @@
-# Function to add a new faculty record
+# Add a new faculty
 def add_faculty(name, department, qualification, experience):
     conn = get_connection()
 import sqlite3
 
-# Function to connect to the database
 def get_connection():
     return sqlite3.connect("faculty.db")
 
-# Function to create the faculty table
+# Create the faculty table
 def create_table():
     conn = get_connection()
     cursor = conn.cursor()
@@ -25,7 +24,7 @@ def create_table():
     conn.commit()
     conn.close()
 
-#------ CRUD FUNCTIONS ------
+#------ CRUD Functions ------
 def add_faculty(name, department, qualification, experience):
     conn = get_connection()
     cursor = conn.cursor()
@@ -73,7 +72,5 @@ def delete_faculty(fid):
     conn.commit()
     conn.close()
 
-
-if __name__ == "__main__":
-    create_table()
-    print("Database setup complete.")
+create_table()
+print("Database setup complete.")

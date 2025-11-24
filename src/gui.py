@@ -2,13 +2,11 @@ import tkinter as tk
 from tkinter import ttk
 from database import add_faculty, get_all_faculty, update_faculty, delete_faculty
 
-
 def start_app():
     root = tk.Tk()
     root.title("Faculty Data Manager")
     root.geometry("850x600")
 
-    # ---------- TOP FRAME (INPUT SECTION) ----------
     top_frame = tk.Frame(root)
     top_frame.pack(pady=10)
 
@@ -31,7 +29,6 @@ def start_app():
     message = tk.Label(root, text="", fg="red")
     message.pack()
 
-    # ---------- BUTTON FRAME ----------
     btn_frame = tk.Frame(root)
     btn_frame.pack(pady=10)
 
@@ -42,17 +39,17 @@ def start_app():
         qual = qual_entry.get().strip()
         exp = exp_entry.get().strip()
 
-        # Validation rules
+        # Validation checks
         if not name or not dept or not qual or not exp:
-            message.config(text="All fields are required")
+            message.config(text="All fields are required", fg="red")
             return
         
         if any(char.isdigit() for char in name):
-            message.config(text="Name cannot contain numbers")
+            message.config(text="Name cannot contain numbers", fg="red")
             return
 
         if not exp.isdigit():
-            message.config(text="Experience must be a number")
+            message.config(text="Experience must be a number", fg="red")
             return
 
         add_faculty(name, dept, qual, exp)
@@ -61,10 +58,8 @@ def start_app():
 
     tk.Button(btn_frame, text="Add Faculty", width=15, command=save_record).grid(row=0, column=0, padx=10)
 
-    # Placeholder variables
     selected_id = None
-
-    # ---------- TABLE ----------
+    # Table
     columns = ("id", "name", "dept", "qual", "exp")
     table = ttk.Treeview(root, columns=columns, show="headings")
 
@@ -83,7 +78,7 @@ def start_app():
 
     load_records()
 
-    # ---------- ROW SELECT ----------
+    # Row Selection
     def select_row(event):
         nonlocal selected_id
         current = table.focus()
@@ -105,7 +100,7 @@ def start_app():
 
     table.bind("<<TreeviewSelect>>", select_row)
 
-    # ---------- UPDATE BUTTON ----------
+    # Update record
     def update_record():
         if selected_id:
             name = name_entry.get().strip()
@@ -114,15 +109,15 @@ def start_app():
             exp = exp_entry.get().strip()
 
             if not name or not dept or not qual or not exp:
-                message.config(text="Please fill all fields before updating")
+                message.config(text="Please fill all fields before updating", fg="red")
                 return
             
             if any(char.isdigit() for char in name):
-                message.config(text="Name cannot contain numbers")
+                message.config(text="Name cannot contain numbers", fg="red")
                 return
 
             if not exp.isdigit():
-                message.config(text="Experience must be a number")
+                message.config(text="Experience must be a number", fg="red")
                 return
 
             update_faculty(selected_id, name, dept, qual, exp)
@@ -131,7 +126,7 @@ def start_app():
 
     tk.Button(btn_frame, text="Update Faculty", width=15, command=update_record).grid(row=0, column=1, padx=10)
 
-    # ---------- DELETE BUTTON ----------
+    # Delete record
     def delete_record():
         if selected_id:
             delete_faculty(selected_id)
